@@ -1,10 +1,8 @@
-# Project Title
-
-Write a 1-2 sentences that quickly and clearly convey what your repo is for.
-
+# Defense VS Offense In the Big Games
+Defense wns championships! Or does Offense actually do it?
 ## Overview
 
-Expand on those introductory sentences with a brief but informative description of your project's purpose and goals. This section should help visitors decide whether they should dig deeper into your repo/project.
+One of the biggest most widely know sayings in the sports world is defense wins championships but have we actually doubted this? Who says its actually the reason teams win. What if the offense is more important in championship games. In this project we will use statistics and analysis to really determine what is more crucial to success. We will create a report that gives an in depth analysis of offense vs defense from championship games to see what was the determining factor in the big games. 
 
 ### Interesting Insight (Optional)
 
@@ -12,11 +10,11 @@ This is optional but highly recommended. You'll include one interesting insight 
 
 ## Data Sources and Acknowledgements
 
-Be sure to list where you got any data used within the project. Be sure to acknowledge any one whose work or elements you're drawing upon.
+All the data is coming from sports reference.com and the real data from the teams and the years.
 
 ## Current Plan
 
-Provide some information about what you intend to doe with the project. You can additionally refer the visitor to your detailed plan document.
+The current plan is to work together to get our data into r and wrangle it to get what we need and then properly display that to analysis our data were using.
 
 ## Repo Structure
 
