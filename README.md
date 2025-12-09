@@ -4,9 +4,12 @@ Defense wns championships! Or does Offense actually do it?
 
 One of the biggest most widely know sayings in the sports world is defense wins championships but have we actually doubted this? Who says its actually the reason teams win. What if the offense is more important in championship games. In this project we will use statistics and analysis to really determine what is more crucial to success. We will create a report that gives an in depth analysis of offense vs defense from championship games to see what was the determining factor in the big games. 
 
-### Interesting Insight (Optional)
+### Key Findings
+1. When looking at the rank of the last five winners defense PF vs offense PF ranks it looks like offense is more important for the team to win having 4/5 with higher offensive rank than defensive.
+   <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/c546ecfb-a260-4404-9c58-5fc30d240eef" />
 
-This is optional but highly recommended. You'll include one interesting insight from your project as part of the README. This insight is most effective when you include a visual. Keep in mind that this visual must be included as an image file (e.g., JPG, PNG, etc.). You can export plots created with `{ggplot2}` by using the function `ggsave`.
+
+
 
 ## Data Sources and Acknowledgements
 
