@@ -16,6 +16,7 @@ All the data is coming from sports reference.com and the real data from the team
 2023 winner: https://www.pro-football-reference.com/teams/kan/2022.htm
 2024 winner: https://www.pro-football-reference.com/teams/kan/2023.htm
 2025 winner: https://www.pro-football-reference.com/teams/phi/2024.htm
+all superbowl winners: https://www.pro-football-reference.com/super-bowl/
 ## Current Plan
 
 The current plan is to work together to get our data into r and wrangle it to get what we need and then properly display that to analysis our data were using.
