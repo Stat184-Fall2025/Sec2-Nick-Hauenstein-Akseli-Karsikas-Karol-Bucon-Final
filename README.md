@@ -11,7 +11,11 @@ This is optional but highly recommended. You'll include one interesting insight 
 ## Data Sources and Acknowledgements
 
 All the data is coming from sports reference.com and the real data from the teams and the years.
-
+2021 winner: https://www.pro-football-reference.com/teams/tam/2020.htm
+2022 winner: https://www.pro-football-reference.com/teams/ram/2021.htm
+2023 winner: https://www.pro-football-reference.com/teams/kan/2022.htm
+2024 winner: https://www.pro-football-reference.com/teams/kan/2023.htm
+2025 winner: https://www.pro-football-reference.com/teams/phi/2024.htm
 ## Current Plan
 
 The current plan is to work together to get our data into r and wrangle it to get what we need and then properly display that to analysis our data were using.
