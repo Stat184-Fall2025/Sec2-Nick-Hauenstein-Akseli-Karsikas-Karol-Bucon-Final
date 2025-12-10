@@ -1,0 +1,370 @@
+---
+title: "Defense VS Offense"
+format: pdf
+editor: visual
+---
+
+One of the most infamous quotes in football is defense wins championships. A theme that is generally perceived is that its the big plays on defense that truly wins you the game not the offense that kept the team in position to win. So does it? Does defense win you the big games. To test this we decided to take a look at the rankings of the last 5 SuperBowl winners to see what was the bigger factor in deciding a victor; the defense or the offense.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+X25_eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (4).xls.xlsx",skip=1)
+                        
+
+X24_Chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (5).xls.xlsx",skip=1)
+
+X23_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (8).xls.xlsx",skip=1)
+
+X21_Rams <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (6).xls.xlsx",skip=1)
+
+X20_bucs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (7).xls.xlsx",skip=1)
+                         
+dfs <- list(
+X25_eagles = X25_eagles,
+X24_chiefs = X24_Chiefs,
+X23_chiefs = X23_chiefs,
+X21_bucs = X20_bucs,
+X22_rams = X21_Rams
+)
+
+
+extract_rank <- function(df, name) {
+tibble(
+team = name,
+defense = df$PF[4],
+offense = df$PF[3]
+)
+}
+
+
+
+ranks <- bind_rows(
+Map(extract_rank, df = dfs, name = names(dfs))
+)
+
+
+
+
+ranks_long <- ranks %>%
+pivot_longer(cols = offense:defense, names_to = "type", values_to = "rank")
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Offense vs. Defense Rank by Team"
+#| fig-align: center
+
+library(ggplot2)
+ranks_long2 <- ranks_long %>%
+  mutate(year = str_extract(team, "\\d+")) %>%   # <-- FIXED
+  mutate(year = as.numeric(year))
+
+ggplot(ranks_long2, aes(x = year, y = rank, color = type, group = type)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_x_continuous(breaks = unique(ranks_long2$year)) +
+  scale_y_reverse() +
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Rank (lower = better)",
+    color = ""
+  )
+
+```
+
+Interestingly it can be seen that 3 of the last 5 winners have actually been stronger on the offensive side of the ball. Not only that but these teams other than the Buccaneers in 2020 and the Eagles in 2025, have rather big difference in their offense and defense strengths.
+
+To test this further lets take a look at the match-up. Were the winners defensive ranking stronger than their opponents offense and that is why they won or no?\
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+X25_eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (4).xls.xlsx",skip=1)
+                        
+
+X24_Chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (5).xls.xlsx",skip=1)
+
+X23_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (8).xls.xlsx",skip=1)
+
+X21_Rams <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (6).xls.xlsx",skip=1)
+
+X20_bucs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (7).xls.xlsx",skip=1)
+                         
+dfs <- list(
+X25_eagles = X25_eagles,
+X24_chiefs = X24_Chiefs,
+X23_chiefs = X23_chiefs,
+X21_bucs = X20_bucs,
+X22_rams = X21_Rams
+)
+
+
+extract_defense <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Defense",
+    rank = df$PF[4]
+  )
+}
+
+defense_ranks <- bind_rows(
+  Map(extract_defense, df = dfs, name = names(dfs))
+)
+
+X2025_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2025 chiefs.xlsx",skip=1)
+
+X2024_niners <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2024 niners.xlsx",skip=1)
+
+X23_Eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/23 Eagles.xlsx",skip=1)
+
+X22_Bengals <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/22 Bengals.xlsx",skip=1)
+
+X21_Cheifs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/21 Cheifs.xlsx",skip=1)
+
+Opps<-list(
+  X25_Chiefs=X2025_chiefs,
+  X24_Niners=X2024_niners,
+  X23_Eagles=X23_Eagles,
+  X22_Bengals=X22_Bengals,
+  X21_Chiefs=X21_Cheifs
+)
+
+extract_offense <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Offense",
+    rank = df$PF[3]
+  )
+}
+
+offense_ranks <- bind_rows(
+  Map(extract_offense, df = Opps, name = names(Opps))
+)
+
+plot_df <- bind_rows(defense_ranks, offense_ranks)
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Defense Rank vs Opponent Offense Rank"
+#| fig-align: center
+
+ggplot(plot_df, aes(x = year, y = rank, color = type, group = type)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_y_reverse() +
+  scale_x_continuous(breaks = sort(unique(plot_df$year))) +
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Rank (lower is better)",
+    color = ""
+  )
+```
+
+According to the figure above it actually appears that even when the defense is ranked lower than the offense of the opponent they still can come out on top. But does this prove that defense is the more important factor? Its hard to still confidently say that so lets take compare the winning teams defense vs the opponents defense. Does the better defense win or lose?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+X25_eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (4).xls.xlsx",skip=1)
+                        
+
+X24_Chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (5).xls.xlsx",skip=1)
+
+X23_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (8).xls.xlsx",skip=1)
+
+X21_Rams <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (6).xls.xlsx",skip=1)
+
+X20_bucs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (7).xls.xlsx",skip=1)
+                         
+dfs <- list(
+X25_eagles = X25_eagles,
+X24_chiefs = X24_Chiefs,
+X23_chiefs = X23_chiefs,
+X21_bucs = X20_bucs,
+X22_rams = X21_Rams
+)
+
+
+extract_winning_defense <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Winners Defense",
+    rank = df$PF[4]
+  )
+}
+
+winning_defense_ranks <- bind_rows(
+  Map(extract_winning_defense, df = dfs, name = names(dfs))
+)
+
+X2025_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2025 chiefs.xlsx",skip=1)
+
+X2024_niners <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2024 niners.xlsx",skip=1)
+
+X23_Eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/23 Eagles.xlsx",skip=1)
+
+X22_Bengals <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/22 Bengals.xlsx",skip=1)
+
+X21_Cheifs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/21 Cheifs.xlsx",skip=1)
+
+Opps<-list(
+  X25_Chiefs=X2025_chiefs,
+  X24_Niners=X2024_niners,
+  X23_Eagles=X23_Eagles,
+  X22_Bengals=X22_Bengals,
+  X21_Chiefs=X21_Cheifs
+)
+
+extract_opp_def <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Opp Defense",
+    rank = df$PF[4]
+  )
+}
+
+opp_def_ranks <- bind_rows(
+  Map(extract_opp_def, df = Opps, name = names(Opps))
+)
+
+plot_defense <- bind_rows(winning_defense_ranks, opp_def_ranks)
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Winning Defense Rank vs Opponent Defense Rank"
+#| fig-align: center
+
+ggplot(plot_defense, aes(x = year, y = rank, color = type, group = type)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_y_reverse() +
+  scale_x_continuous(breaks = sort(unique(plot_df$year))) +
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Rank (lower is better)",
+    color = ""
+  )
+```
+
+Wow! As you can see in the figure above the defensive ranks between the winner and loser are actually very close. What does this mean? Having the stronger defense might not really matter. While the slight majority of 3/5 better defenses were the winners, clearly you can still lose while being a more elite defensive team. There is one other possible explanation to why a team might win and that could be offense. So lets take a look at the offense comparison between the match-ups and see if having the better offense is the true way to measure who will win.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+X25_eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (4).xls.xlsx",skip=1)
+                        
+
+X24_Chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (5).xls.xlsx",skip=1)
+
+X23_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (8).xls.xlsx",skip=1)
+
+X21_Rams <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (6).xls.xlsx",skip=1)
+
+X20_bucs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/sportsref_download (7).xls.xlsx",skip=1)
+                         
+dfs <- list(
+X25_eagles = X25_eagles,
+X24_chiefs = X24_Chiefs,
+X23_chiefs = X23_chiefs,
+X21_bucs = X20_bucs,
+X22_rams = X21_Rams
+)
+
+
+extract_winning_offense <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Winners Offense",
+    rank = df$PF[3]
+  )
+}
+
+winning_offense_ranks <- bind_rows(
+  Map(extract_winning_offense, df = dfs, name = names(dfs))
+)
+
+X2025_chiefs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2025 chiefs.xlsx",skip=1)
+
+X2024_niners <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/2024 niners.xlsx",skip=1)
+
+X23_Eagles <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/23 Eagles.xlsx",skip=1)
+
+X22_Bengals <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/22 Bengals.xlsx",skip=1)
+
+X21_Cheifs <- read_excel("C:/Users/brido/OneDrive - The Pennsylvania State University/Stat 184/21 Cheifs.xlsx",skip=1)
+
+Opps<-list(
+  X25_Chiefs=X2025_chiefs,
+  X24_Niners=X2024_niners,
+  X23_Eagles=X23_Eagles,
+  X22_Bengals=X22_Bengals,
+  X21_Chiefs=X21_Cheifs
+)
+
+extract_opp_off <- function(df, name) {
+  tibble(
+    year = as.numeric(str_extract(name, "\\d+")),
+    type = "Opp Offense",
+    rank = df$PF[3]
+  )
+}
+
+opp_off_ranks <- bind_rows(
+  Map(extract_opp_off, df = Opps, name = names(Opps))
+)
+
+plot_offense <- bind_rows(winning_offense_ranks, opp_off_ranks)
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Winning Offense Rank vs Opponent Offense Rank"
+#| fig-align: center
+
+ggplot(plot_offense, aes(x = year, y = rank, color = type, group = type)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_y_reverse() +
+  scale_x_continuous(breaks = sort(unique(plot_df$year))) +
+  theme_minimal() +
+  labs(
+    x = "Year",
+    y = "Rank (lower is better)",
+    color = ""
+  )
+```
+
+As shown in this figure having a better offense wins 3/5 times. Does this really mean that offense is more important? This does not show if it is a deciding factor the same as defensive rank did.
+
+So what is more important, offense or defense? Neither. Looking at all the ranks of each team not one stands out. What it looks like is both matter. Not one is the deciding factor rather it is a combination of the offense and the defense that decides who will win. There are definitely other factors that could come into play that are inmeasurable such as pressure, mindset, and fans so it is very difficult to truly pinpoint whats most crucial.
+
+If you were to hear someone say "defense wins championships" then they will not truly be correct but, they also would not be wrong.
+
