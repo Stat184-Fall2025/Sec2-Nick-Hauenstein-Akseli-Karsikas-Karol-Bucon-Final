@@ -40,5 +40,7 @@ The current plan is to work together to get our data into r and wrangle it to ge
 
 
 ## Authors
+We are PSU Stat 184 students, and if you have any questions, please do not hesitate to contact the personnel listed below.
 
-Give information about who are the authors of the project and how people can get in touch if they have questions.
+"Hauenstein, Nicholas Brian" <nbh5337@psu.edu>
+"Akseli, Karsikas Viljami" <avk6486@psu.edu>
