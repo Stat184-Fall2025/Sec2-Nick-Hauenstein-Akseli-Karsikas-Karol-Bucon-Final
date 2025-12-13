@@ -6,6 +6,24 @@ editor: visual
 
 One of the most infamous quotes in football is defense wins championships. A theme that is generally perceived is that its the big plays on defense that truly wins you the game not the offense that kept the team in position to win. So does it? Does defense win you the big games. To test this we decided to take a look at the rankings of the last 5 SuperBowl winners to see what was the bigger factor in deciding a victor; the defense or the offense.
 
+## Data Provenance, FAIR, and CARE Principles
+
+The data used in this project come from [Pro Football Reference](https://www.pro-football-reference.com/), 
+which maintains open access statistics on NFL teams.
+
+**FAIR Principles**
+- **Findable:** All data is publicly available online with consistent URLs per season.
+- **Accessible:** No login or payment required to download data. 
+- **Interoperable:** Files were downloaded as Excel spreadsheets (.xlsx) and imported using `readxl` in R.
+- **Reusable:** Data include clear variable names and metadata.
+
+**CARE Principles**
+- **Collective Benefit:** The data are used for educational and analytical purposes.
+- **Authority to Control:** The data are collected and published by the site’s maintainers; we respect their terms of use.
+- **Responsibility:** The analysis maintains proper attribution and links to original sources.
+- **Ethics:** The data involve publicly available professional sports performance, not private or sensitive information.
+
+
 ```{r}
 #| echo: false
 #| message: false
@@ -367,4 +385,5 @@ As shown in this figure having a better offense wins 3/5 times. Does this really
 So what is more important, offense or defense? Neither. Looking at all the ranks of each team not one stands out. What it looks like is both matter. Not one is the deciding factor rather it is a combination of the offense and the defense that decides who will win. There are definitely other factors that could come into play that are inmeasurable such as pressure, mindset, and fans so it is very difficult to truly pinpoint whats most crucial.
 
 If you were to hear someone say "defense wins championships" then they will not truly be correct but, they also would not be wrong.
+
 
