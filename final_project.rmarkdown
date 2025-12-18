@@ -4,23 +4,23 @@ format: pdf
 editor: visual
 ---
 
-One of the most infamous quotes in football is defense wins championships. A theme that is generally perceived is that its the big plays on defense that truly wins you the game not the offense that kept the team in position to win. So does it? Does defense win you the big games. To test this we decided to take a look at the rankings of the last 5 SuperBowl winners to see what was the bigger factor in deciding a victor; the defense or the offense.
+One of the most famous quotes in football is 'defense wins championships.' A theme that is generally perceived is that it's the big plays on defense that truly win you the game, not the offense that kept the team in position to win. So does it? Does defense win you the big games? To test this, we decided to examine the rankings of the last five Super Bowl winners to determine which factor was more significant in deciding a victor: defense or offense.
 
 ## Data Provenance, FAIR, and CARE Principles
 
-The data used in this project come from [Pro Football Reference](https://www.pro-football-reference.com/), 
+The data used in this project comes from [Pro Football Reference](https://www.pro-football-reference.com/), 
 which maintains open access statistics on NFL teams.
 
 **FAIR Principles**
 - **Findable:** All data is publicly available online with consistent URLs per season.
 - **Accessible:** No login or payment required to download data. 
 - **Interoperable:** Files were downloaded as Excel spreadsheets (.xlsx) and imported using `readxl` in R.
-- **Reusable:** Data include clear variable names and metadata.
+- **Reusable:** Data includes clear variable names and metadata.
 
 **CARE Principles**
 - **Collective Benefit:** The data are used for educational and analytical purposes.
 - **Authority to Control:** The data are collected and published by the site’s maintainers; we respect their terms of use.
-- **Responsibility:** The analysis maintains proper attribution and links to original sources.
+- **Responsibility:** The analysis maintains proper attribution and links to sources.
 - **Ethics:** The data involve publicly available professional sports performance, not private or sensitive information.
 
 
@@ -99,9 +99,9 @@ ggplot(ranks_long2, aes(x = year, y = rank, color = type, group = type)) +
 
 ```
 
-Interestingly it can be seen that 3 of the last 5 winners have actually been stronger on the offensive side of the ball. Not only that but these teams other than the Buccaneers in 2020 and the Eagles in 2025, have rather big difference in their offense and defense strengths.
+Interestingly, it can be seen that 3 of the last 5 winners have actually been stronger on the offensive side of the ball. Not only that, but these teams, other than the Buccaneers in 2020 and the Eagles in 2025, have rather big differences in their offense and defense strengths.
 
-To test this further lets take a look at the match-up. Were the winners defensive ranking stronger than their opponents offense and that is why they won or no?\
+To test this further lets take a look at the match-up. Was the winners defensive ranking stronger than their opponents offense, and that is why they won, or not?\
 
 ```{r}
 #| echo: false
@@ -194,7 +194,7 @@ ggplot(plot_df, aes(x = year, y = rank, color = type, group = type)) +
   )
 ```
 
-According to the figure above it actually appears that even when the defense is ranked lower than the offense of the opponent they still can come out on top. But does this prove that defense is the more important factor? Its hard to still confidently say that so lets take compare the winning teams defense vs the opponents defense. Does the better defense win or lose?
+According to the figure above it actually appears that even when the defense is ranked lower than the offense of the opponent, they still can come out on top. But does this prove that defense is the more important factor? Its hard to still confidently say that, so lets take compare the winning teams defense vs the opponents defense. Does the better defense win or lose?
 
 ```{r}
 #| echo: false
@@ -287,7 +287,7 @@ ggplot(plot_defense, aes(x = year, y = rank, color = type, group = type)) +
   )
 ```
 
-Wow! As you can see in the figure above the defensive ranks between the winner and loser are actually very close. What does this mean? Having the stronger defense might not really matter. While the slight majority of 3/5 better defenses were the winners, clearly you can still lose while being a more elite defensive team. There is one other possible explanation to why a team might win and that could be offense. So lets take a look at the offense comparison between the match-ups and see if having the better offense is the true way to measure who will win.
+Wow! As you can see in the figure above, the defensive ranks between the winner and loser are actually very close. What does this mean? Having a stronger defense might not really matter. While the slight majority of 3/5 better defenses were the winners, clearly you can still lose while being a more elite defensive team. There is one other possible explanation to why a team might win, and that could be offense. So let's take a look at the offense comparison between the matchups and see if having the better offense is the true way to measure who will win.
 
 ```{r}
 #| echo: false
@@ -380,11 +380,11 @@ ggplot(plot_offense, aes(x = year, y = rank, color = type, group = type)) +
   )
 ```
 
-As shown in this figure having a better offense wins 3/5 times. Does this really mean that offense is more important? This does not show if it is a deciding factor the same as defensive rank did.
+As shown in this figure, having a better offense wins 3/5 times. Does this really mean that offense is more important? This does not show if it is a deciding factor, the same as the defensive rank did.
 
-So what is more important, offense or defense? Neither. Looking at all the ranks of each team not one stands out. What it looks like is both matter. Not one is the deciding factor rather it is a combination of the offense and the defense that decides who will win. There are definitely other factors that could come into play that are inmeasurable such as pressure, mindset, and fans so it is very difficult to truly pinpoint whats most crucial.
+So what is more important, offense or defense? Neither. Looking at all the ranks of each team, not one stands out. What it looks like is that both matter. Not one is the deciding factor; rather, it is a combination of the offense and the defense that decides who will win. There are definitely other factors that could come into play that are inmeasurable such as pressure, mindset, and fans so it is very difficult to truly pinpoint whats most crucial.
 
-If you were to hear someone say "defense wins championships" then they will not truly be correct but, they also would not be wrong.
+If you were to hear someone say "defense wins championships" then they will not truly be correct, but they also would not be wrong.
 
 
 ## Author Contributions
@@ -395,4 +395,5 @@ If you were to hear someone say "defense wins championships" then they will not 
 
 ## Code Appendix
 ```{r codeAppend, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+
 
