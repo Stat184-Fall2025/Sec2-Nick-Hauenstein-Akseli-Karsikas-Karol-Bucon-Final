@@ -387,3 +387,12 @@ So what is more important, offense or defense? Neither. Looking at all the ranks
 If you were to hear someone say "defense wins championships" then they will not truly be correct but, they also would not be wrong.
 
 
+## Author Contributions
+
+- **Nick Hauenstein:** Main developer, repository setup, data loading, and summary tables.
+- **Karol Bucon:** help and discussion of results.
+- **Akseli Karsikas:** Data provenance, FAIR/CARE principles, and help with a comparative visual of offense and defense.
+
+## Code Appendix
+```{r codeAppend, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+
