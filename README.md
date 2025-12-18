@@ -5,14 +5,14 @@ Defense wins championships! Or does Offense actually do it?
 One of the most widely known sayings in sports is that defense wins championships, but is this actually true? While strong defense is often credited for success, offensive performance may play an equally important role in championship games. In this project, we analyze team statistics from recent Super Bowl matchups to examine whether offense or defense is more strongly associated with winning the biggest games. Using real NFL data, we compare offensive and defensive rankings of both winners and losers to explore which factors appear most influential.
 
 ### Key Findings
-1. When looking at the rank of the last five winners defense PF vs offense PF ranks, it looks like offense is more important for the team to win, having 3/5 with a higher offensive rank than defensive.
+1. Among the last five Super Bowl winners, three teams ranked higher offensively than defensively, suggesting offense may be at least as important as defense in championship        success.
    <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/d584b4ad-a948-48f9-a755-bd167d7dd8e2" />
-2. According to the figure above, it actually appears that even when the defense is ranked lower than the offense of the opponent, they still can come out on top
+2. Several winning teams defeated opponents despite having lower defensive rankings than the opposing offense, indicating that defensive dominance alone does not guarantee          victory.
    <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/2857cf1e-d0f9-42da-8aec-bb4200299d4c" />
-3. As you can see in the figure above, the defensive ranks between the winner and loser are actually very close.
+3. Defensive rankings between Super Bowl winners and losers were often very similar, showing little separation between teams on the defensive side of the ball.
     <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/1bbc2a6b-78ee-4742-bb70-aee44a957090" />
-4. As shown in this figure, having a better offense wins 3/5 times.
- <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/b52590a8-85ba-4770-a92e-63077d8440a1" />
+4. In three of the five matchups analyzed, the team with the stronger offensive ranking ultimately won the game.
+    <img width="1161" height="712" alt="image" src="https://github.com/user-attachments/assets/b52590a8-85ba-4770-a92e-63077d8440a1" />
 
 
 
