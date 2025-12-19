@@ -24,6 +24,11 @@ which maintains open access statistics on NFL teams.
 - **Ethics:** The data involve publicly available professional sports performance, not private or sensitive information.
 
 
+## Research Question
+
+Does defensive performance play a larger role than offensive performance in determining the outcome of Super Bowl championship games, or are both factors equally important?
+
+
 ```{r}
 #| echo: false
 #| message: false
@@ -98,7 +103,20 @@ ggplot(ranks_long2, aes(x = year, y = rank, color = type, group = type)) +
   )
 
 ```
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: "Average Offensive and Defensive Ranks of Super Bowl Winners (Table by Akseli Karsikas)"
 
+library(dplyr)
+
+ranks %>%
+summarize(
+Avg_Offense_Rank = mean(offense, na.rm = TRUE),
+Avg_Defense_Rank = mean(defense, na.rm = TRUE)
+)
+```
 Interestingly, it can be seen that 3 of the last 5 winners have actually been stronger on the offensive side of the ball. Not only that, but these teams, other than the Buccaneers in 2020 and the Eagles in 2025, have rather big differences in their offense and defense strengths.
 
 To test this further lets take a look at the match-up. Was the winners defensive ranking stronger than their opponents offense, and that is why they won, or not?\
@@ -286,7 +304,18 @@ ggplot(plot_defense, aes(x = year, y = rank, color = type, group = type)) +
     color = ""
   )
 ```
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: "Comparison of Winner vs Opponent Defensive Ranks (Table by Akseli Karsikas)"
 
+plot_defense %>%
+group_by(type) %>%
+summarize(
+Average_Rank = mean(rank, na.rm = TRUE)
+)
+```
 Wow! As you can see in the figure above, the defensive ranks between the winner and loser are actually very close. What does this mean? Having a stronger defense might not really matter. While the slight majority of 3/5 better defenses were the winners, clearly you can still lose while being a more elite defensive team. There is one other possible explanation to why a team might win, and that could be offense. So let's take a look at the offense comparison between the matchups and see if having the better offense is the true way to measure who will win.
 
 ```{r}
@@ -379,13 +408,41 @@ ggplot(plot_offense, aes(x = year, y = rank, color = type, group = type)) +
     color = ""
   )
 ```
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Distribution of Offensive vs Defensive Ranks for Super Bowl Winners (Figure by Akseli Karsikas)"
+#| fig-align: center
 
-As shown in this figure, having a better offense wins 3/5 times. Does this really mean that offense is more important? This does not show if it is a deciding factor, the same as the defensive rank did.
+ggplot(ranks_long, aes(x = type, y = rank, fill = type)) +
+geom_boxplot(alpha = 0.7) +
+scale_y_reverse() +
+theme_minimal() +
+labs(
+x = "",
+y = "Rank (lower is better)"
+) +
+theme(legend.position = "none")
+```
+This box plot shows that offensive ranks among Super Bowl winners tend to have a slightly lower median than
+defensive ranks, suggesting that stronger offenses are at least as common as strong defenses among recent champions.
 
-So what is more important, offense or defense? Neither. Looking at all the ranks of each team, not one stands out. What it looks like is that both matter. Not one is the deciding factor; rather, it is a combination of the offense and the defense that decides who will win. There are definitely other factors that could come into play that are inmeasurable such as pressure, mindset, and fans so it is very difficult to truly pinpoint whats most crucial.
 
-If you were to hear someone say "defense wins championships" then they will not truly be correct, but they also would not be wrong.
 
+
+## Conclusion
+
+The results of this analysis suggest that neither offense nor defense alone determines success in championship games.
+While recent Super Bowl winners slightly favor stronger offensive rankings, defensive performance remains closely matched between winners and losers.
+Ultimately, success appears to result from a balance of both offensive and defensive strength, along with situational and contextual factors that are difficult to quantify.
+If they could be, sports betting wouldn't benefit the house.
+
+
+
+## Limitations
+
+This analysis is limited by a small sample size of recent Super Bowl games and by the use of season-level rankings rather than game-level performance. Rankings may not fully capture situational factors such as injuries, in-game adjustments, turnovers, or coaching decisions. As a result, conclusions should be interpreted as exploratory rather than definitive.
 
 ## Author Contributions
 
@@ -394,6 +451,7 @@ If you were to hear someone say "defense wins championships" then they will not 
 - **Akseli Karsikas:** Data provenance, FAIR/CARE principles, and help with a comparative visual of offense and defense.
 
 ## Code Appendix
-```{r codeAppend, ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```{}
+
 
 
